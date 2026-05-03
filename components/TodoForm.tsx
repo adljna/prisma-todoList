@@ -1,31 +1,31 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 function TodoForm({}: Props) {
   const [body, setBody] = useState('');
   const [isLoading, setisLoading] = useState(false);
+  const router = useRouter(); // 🔥 tambahin ini
 
   const handleAddTodo = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setisLoading(true);
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
-      const { data } = await axios.post('/api/todos', { body }, config);
+      const { data } = await axios.post('/api/todos', { body });
 
       console.log(data);
 
+      setBody(''); // 🔥 reset input
       setisLoading(false);
+
+      router.replace(router.asPath); // 🔥 REFETCH DATA
     } catch (error) {
       console.error(error);
+      setisLoading(false);
     }
   };
 
@@ -46,6 +46,7 @@ function TodoForm({}: Props) {
           value='Add Todo'
         />
       </form>
+
       {isLoading && (
         <p className='mt-4 p-2 bg-blue-400 rounded-md text-white select-none'>
           Loading...
