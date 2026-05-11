@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest   # Pakai mesin virtual Ubuntu di server GitHub
 
     steps:
-      # 1. Checkout: ambil kode dari repo kamu
+      # 1. Checkout: ambil kode dari repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -50,7 +50,6 @@ jobs:
             --set-env-vars="DATABASE_URL=${{ secrets.DATABASE_URL }}"
 
       # 7. Tampilkan URL aplikasi yang sudah live
-      # ──────────────────────────────────────────────
       - name: Show deployed URL
         run: |
           gcloud run services describe prisma-todolist-service \
