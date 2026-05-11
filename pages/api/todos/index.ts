@@ -1,12 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import ITodo from '../../types/todo';
 
 const prisma = new PrismaClient();
-
-type Data = {
-  todos: ITodo[];
-};
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextApiRequest, res: NextApiResponse) => {
